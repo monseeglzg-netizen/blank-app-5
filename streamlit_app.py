@@ -25,3 +25,15 @@ for c in ["is_fit", "esta_en_forma", "está_en_forma"]:
 if target is None:
     st.error("No encontré la columna objetivo (`is_fit` o `esta_en_forma`).")
     st.stop()
+variables_num = []
+variables_cat = []
+for col in df.columns:
+    if col == target:
+        continue
+    if df[col].dtype in ["int64", "float64"]:
+        variables_num.append(col)
+    else:
+        variables_cat.append(col)
+
+st.write("**Variables numéricas detectadas:**", variables_num)
+st.write("**Variables categóricas detectadas:**", variables_cat)
