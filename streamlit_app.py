@@ -56,3 +56,26 @@ for col in df.columns:
         break
 
 st.success("Modelo basado en reglas entrenado correctamente ✔️")
+# FORMULARIO DE PREDICCIÓN
+# -----------------------------------------------------------
+st.subheader("🔮 Haz una predicción")
+
+input_data = {}
+
+# Crear sliders dinámicos según columnas numéricas detectadas
+for col in variables_num:
+    minimo = float(df[col].min())
+    maximo = float(df[col].max())
+    valor_default = float(df[col].mean())
+    input_data[col] = st.slider(
+        f"{col}",
+        minimo, maximo, valor_default
+    )
+
+# Categorías
+for col in variables_cat:
+    opciones = df[col].dropna().unique().tolist()
+    input_data[col] = st.selectbox(f"{col}", opciones)
+
+if st.button("Predecir"):
+    score = 0
