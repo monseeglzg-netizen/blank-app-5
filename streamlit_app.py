@@ -16,3 +16,12 @@ if file is None:
 df = pd.read_csv(file)
 st.subheader("Vista rápida del dataset")
 st.dataframe(df.head())
+target = None
+for c in ["is_fit", "esta_en_forma", "está_en_forma"]:
+    if c in df.columns:
+        target = c
+        break
+
+if target is None:
+    st.error("No encontré la columna objetivo (`is_fit` o `esta_en_forma`).")
+    st.stop()
