@@ -102,3 +102,20 @@ for col in variables_cat:
 
 if st.button("Predecir"):
     score = 0
+  # Aplicación de reglas
+    if regla_actividad and input_data[regla_actividad] >= df[regla_actividad].mean():
+        score += 1
+
+    if regla_sueno and input_data[regla_sueno] >= df[regla_sueno].mean():
+        score += 1
+
+    if regla_fc and input_data[regla_fc] <= df[regla_fc].mean():
+        score += 1
+
+    # Resultado final
+    st.subheader("Resultado de la predicción")
+
+    if score >= 2:
+        st.success("✅ La persona probablemente **SÍ está en forma** (1)")
+    else:
+        st.warning("⚠️ La persona **NO está en forma** (0)")
