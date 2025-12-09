@@ -7,3 +7,12 @@ st.write("""
 Este modelo NO utiliza scikit-learn, por lo que funciona sin errores en Streamlit Cloud.
 Clasifica según patrones reales encontrados en tu dataset.
 """)
+file = st.file_uploader("Sube tu archivo Fitness_Classification.csv", type=["csv"])
+
+if file is None:
+    st.info("Sube el archivo para continuar.")
+    st.stop()
+
+df = pd.read_csv(file)
+st.subheader("Vista rápida del dataset")
+st.dataframe(df.head())
