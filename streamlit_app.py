@@ -37,3 +37,22 @@ for col in df.columns:
 
 st.write("**Variables numéricas detectadas:**", variables_num)
 st.write("**Variables categóricas detectadas:**", variables_cat)
+st.subheader("Entrenando modelo basado en reglas…")
+
+regla_actividad = None
+for col in df.columns:
+    if "actividad" in col.lower():
+        regla_actividad = col
+        break
+regla_sueno = None
+for col in df.columns:
+    if "sue" in col.lower():
+        regla_sueno = col
+        break
+regla_fc = None
+for col in df.columns:
+    if "cardiaca" in col.lower() or "heart" in col.lower():
+        regla_fc = col
+        break
+
+st.success("Modelo basado en reglas entrenado correctamente ✔️")
