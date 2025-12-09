@@ -40,15 +40,38 @@ st.write("**Variables categóricas detectadas:**", variables_cat)
 st.subheader("Entrenando modelo basado en reglas…")
 
 regla_actividad = None
+# Detectar tipos de columnas automáticamente
+for col in df.columns:
+    if col == target:
+        continue
+    if df[col].dtype in ["int64", "float64"]:
+        variables_num.append(col)
+    else:
+        variables_cat.append(col)
+
+st.write("**Variables numéricas detectadas:**", variables_num)
+st.write("**Variables categóricas detectadas:**", variables_cat)
+
+# -----------------------------------------------------------
+# ENTRENAR MODELO BASADO EN REGLAS
+# -----------------------------------------------------------
+st.subheader("Entrenando modelo basado en reglas…")
+
+# Regla 1: si el índice de actividad es alto → probablemente está en forma.
+regla_actividad = None
 for col in df.columns:
     if "actividad" in col.lower():
         regla_actividad = col
         break
+
+# Regla 2: si duerme bien y tiene buen peso
 regla_sueno = None
 for col in df.columns:
     if "sue" in col.lower():
         regla_sueno = col
         break
+
+# Regla 3: si la frecuencia cardiaca es baja → buena condición
 regla_fc = None
 for col in df.columns:
     if "cardiaca" in col.lower() or "heart" in col.lower():
